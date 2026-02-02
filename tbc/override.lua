@@ -382,3 +382,9 @@ elseif sc.class == sc.classes.hunter then
     end
 end
 
+-- Channeled spells cannot crit until WotLK
+for _, spell in pairs(spells) do
+    if bit.band(spell.flags, spell_flags.channel) ~= 0 and spell.periodic then
+        spell.periodic.flags = bit.bor(spell.periodic.flags, comp_flags.cant_crit);
+    end
+end
